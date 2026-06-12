@@ -1,60 +1,108 @@
-# Python CRUD Application for [Business Domain]
+# Car Rental Inventory Management System
 
-A comprehensive Python application for managing [Data Entity] data with Create, Read, Update, and Delete (CRUD) operations.
+A comprehensive Python application for managing car rental inventory data with Create, Read, Update, and Delete (CRUD) operations, connected to a MySQL database.
 
 ## Business Understanding
 
-This project caters to the [Industry/Business Domain] industry, specifically addressing the need to manage [Data Entity] data efficiently. [Data Entity] plays a crucial role in [Explain the importance of data entity in business processes].
+This project caters to the **car rental industry**, specifically addressing the need to manage vehicle inventory data efficiently. Accurate and up-to-date car data plays a crucial role in ensuring smooth rental operations, from tracking vehicle availability to managing pricing.
 
 **Benefits:**
 
-* Improved data accuracy and consistency
-* Streamlined data management processes
-* Enhanced decision-making through readily available data
-* ... (List additional benefits relevant to the business)
+* Improved data accuracy and consistency for vehicle records
+* Streamlined inventory management processes
+* Real-time availability tracking for rental vehicles
+* Easy access to vehicle data through an interactive menu
+* Data export capability for reporting and analysis
 
 **Target Users:**
 
-This application is designed for [Target Users] (e.g., sales representatives, inventory managers, customer support agents) within the organization to facilitate their [Tasks/Activities] related to [Data Entity].
+This application is designed for **rental staff and inventory managers** within a car rental business to facilitate their daily tasks related to managing vehicle data, such as adding new vehicles, updating availability status, and monitoring the fleet.
+
+---
 
 ## Features
 
 * **Create:**
-    * Add new [Data Entity] entries with essential details like [List relevant fields].
-    * Implement validation rules to ensure data integrity (if applicable, e.g., unique identifiers, data type checks).
+    * Add new car entries with details such as brand, model, license plate, daily rate, and availability status.
+    * Validation rules to ensure data integrity (unique license plate, correct plate format, numeric rate).
+
 * **Read:**
-    * Search and retrieve specific [Data Entity] records by applying filters based on [Searchable fields].
-    * Display comprehensive information for each [Data Entity] in a user-friendly format.
-    * Integrate pagination and sorting capabilities for large datasets (if applicable).
+    * Display all cars in a formatted table with availability status.
+    * Filter cars by availability (available or currently rented).
+    * Search cars by brand or model name.
+
 * **Update:**
-    * Modify existing [Data Entity] data to reflect changes in [Attributes/Properties].
-    * Provide clear confirmation or error messages based on update success or failure.
+    * Modify existing car data including brand, model, license plate, daily rate, or availability status.
+    * Search car by brand, model, or license plate before updating.
+    * Confirmation prompt before saving changes.
+
 * **Delete:**
-    * Allow for the removal of unwanted [Data Entity] records with appropriate authorization checks (if applicable).
-    * Implement soft delete functionality to prevent permanent data loss (optional, depending on business needs).
-    * Consider offering data archiving capabilities (optional).
-* **Security:**
-    * Implement user authentication and authorization mechanisms (if sensitive data is involved) to control access to different CRUD operations.
-    * ... (Specify additional security features as needed)
-* **Reporting:**
-    * Generate reports or summaries based on [Data Entity] data to support [Business Functions] (optional).
-    * Export data in various formats (e.g., CSV, Excel) for further analysis (optional).
+    * Remove unwanted car records from the system.
+    * Confirmation prompt before permanent deletion.
+
+* **Export:**
+    * Export car data to CSV format for further analysis.
+    * Option to export all cars, only available cars, or only rented cars.
+    * Custom filename support.
+
+---
+
+## Tech Stack
+
+* **Language:** Python 3.x
+* **Database:** MySQL
+* **Libraries:** `pymysql`, `csv`, `re`
+* **Architecture:** Class-based, modular structure
+
+---
+
+## Project Structure
+
+```
+rental_mobil/
+├── main.py          # Main application class (CarApp) and menu logic
+├── db.py            # Database configuration and connection (Database class)
+├── models.py        # Car data model (Car class)
+├── repository.py    # CRUD operations (CarRepository class)
+└── README.md
+```
+
+---
 
 ## Installation
 
 1. **Prerequisites:**
-    * Python version (specify the required version)
-    * Additional dependencies (list any required packages)
+    * Python 3.x
+    * MySQL Server
+    * pymysql library
 
-2. **Installation:**
+2. **Clone the repository:**
     ```bash
-    git clone https://github.com/<your-username>/<your-repo-name>.git
-    cd <your-repo-name>
-    pip install -r requirements.txt  # If using a requirements.txt file
+    git clone https://github.com/<your-username>/rental-mobil-crud.git
+    cd rental-mobil-crud
     ```
 
-3. **Database Setup (if applicable):**
-    Follow specific instructions for configuring your database connection, aligning with the business's chosen database management system.
+3. **Install dependencies:**
+    ```bash
+    pip install pymysql
+    ```
+
+4. **Configure database connection in `db.py`:**
+    ```python
+    DB_CONFIG = {
+        "host":     "localhost",
+        "user":     "root",      
+        "password": "Kenzokutowa108",           
+        "database": "rental_mobil"
+    }
+    ```
+
+5. **Run the application** (database and table will be created automatically):
+    ```bash
+    python main.py
+    ```
+
+---
 
 ## Usage
 
@@ -64,17 +112,54 @@ This application is designed for [Target Users] (e.g., sales representatives, in
     ```
 
 2. **CRUD Operations:**
-    * **Create:** Add a new [Data Entity] record, for example, a new customer in a customer management system, providing details like name, contact information, and preferences.
-    * **Read:** Search and retrieve customer information by name, ID, or other relevant criteria.
-    * **Update:** Modify customer details, such as updating their address or contact details.
-    * **Delete:** Remove a customer record from the system (with appropriate authorization, if applicable).
+    * **Create:** Select menu `2` → Add a new car with brand, model, license plate, daily rate, and availability status.
+    * **Read:** Select menu `1` → View all cars, filter by availability, or search by brand/model.
+    * **Update:** Select menu `4` → Search for a car and update any field.
+    * **Delete:** Select menu `3` → Select a car by number and confirm deletion.
+    * **Export CSV:** Select menu `5` → Choose data filter and export to a `.csv` file.
+
+---
 
 ## Data Model
-This project utilizes a [Data Structure] (e.g., relational database, JSON documents) to represent [Data Entity] data. The following fields are typically stored:
-   * [Field 1]: (Data type) - Description of the field's purpose in the business context.
-   * [Field 2]: (Data type) - Description of the field's purpose in the business context.
-   * ... (List all relevant fields)
+
+This project uses a **MySQL relational database** to store car inventory data. The following fields are stored in the `mobil` table:
+
+| Field | Data Type | Description |
+|---|---|---|
+| `id` | INT (AUTO_INCREMENT) | Unique identifier for each car |
+| `merk` | VARCHAR(100) | Car brand (e.g., Toyota, Honda) |
+| `model` | VARCHAR(100) | Car model (e.g., Avanza, Brio) |
+| `license_plate` | VARCHAR(20) | Unique license plate number |
+| `daily_rate` | INT | Rental price per day in Rupiah |
+| `availability` | BOOLEAN | True = available, False = currently rented |
+
+---
+
+## Database Setup (Manual)
+
+If you prefer to set up the database manually, run the following SQL:
+
+```sql
+CREATE DATABASE IF NOT EXISTS rental_mobil;
+USE rental_mobil;
+
+CREATE TABLE IF NOT EXISTS mobil (
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    merk          VARCHAR(100) NOT NULL,
+    model         VARCHAR(100) NOT NULL,
+    license_plate VARCHAR(20)  NOT NULL UNIQUE,
+    daily_rate    INT          NOT NULL,
+    availability  BOOLEAN      NOT NULL DEFAULT TRUE
+);
+```
+
+Or export the database dump using:
+```bash
+mysqldump -u root -p rental_mobil > rental_mobil.sql
+```
+
+---
 
 ## Contributing
-We welcome contributions to this project! Please feel free to open a pull request, sent to [your_email] or submit an issue if you encounter any problems or have suggestions for improvements.
 
+Feel free to open a pull request or submit an issue if you encounter any problems or have suggestions for improvements.
