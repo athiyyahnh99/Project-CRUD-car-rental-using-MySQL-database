@@ -59,7 +59,7 @@ class CarApp:
         self.repo    = CarRepository()
         self.running = True
 
-    # ————— Menu —————
+    # Menu
 
     def main_menu(self):
         print("\n=== SELAMAT DATANG DI APLIKASI RENTAL MOBIL ===")
@@ -97,7 +97,7 @@ class CarApp:
         print("2. Kembali ke menu utama")
         return input("Masukkan angka menu yang ingin dijalankan: ")
 
-    # ————— CRUD Actions —————
+    #  CRUD
 
     def view_all(self):
         print_header("DAFTAR SEMUA MOBIL")
@@ -344,7 +344,7 @@ class CarApp:
         else:
             print("Update dibatalkan.")
 
-    # ————— Export CSV —————
+    #  Export CSV 
 
     def export_csv(self):
         print_header("EXPORT DATA KE CSV")
@@ -379,7 +379,7 @@ class CarApp:
 
         self.repo.export_to_csv(filename=filename, filter_avail=filter_avail)
 
-    # ————— Main Loop —————
+    # Main Loop 
 
     def run(self):
         while self.running:

@@ -8,8 +8,8 @@ from pymysql import cursors, connect
 
 DB_CONFIG = {
     "host":        "localhost",
-    "user":        "root",        # Ganti dengan username MySQL kamu
-    "password":    "Kenzokutowa108",            # Ganti dengan password MySQL kamu
+    "user":        "root",        
+    "password":    "Kenzokutowa108",      
     "database":    "rental_mobil",
     "cursorclass": cursors.DictCursor
 }
