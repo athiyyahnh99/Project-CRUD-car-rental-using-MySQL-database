@@ -1,0 +1,5 @@
+# List of external Python packages that your project depends on. 
+# By specifying these dependencies in a requirements.txt file, 
+# you ensure that anyone who wants to set up or run your project can 
+# easily install all the necessary packages using a single command.
+tabulate==0.9.0
